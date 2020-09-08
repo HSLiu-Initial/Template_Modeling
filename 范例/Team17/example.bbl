@@ -1,0 +1,34 @@
+\begin{thebibliography}{1}
+\ifx \showCODEN  \undefined \def \showCODEN #1{CODEN #1}  \fi
+\ifx \showISBN   \undefined \def \showISBN  #1{ISBN #1}   \fi
+\ifx \showISSN   \undefined \def \showISSN  #1{ISSN #1}   \fi
+\ifx \showLCCN   \undefined \def \showLCCN  #1{LCCN #1}   \fi
+\ifx \showPRICE  \undefined \def \showPRICE #1{#1}        \fi
+\ifx \showURL    \undefined \def \showURL {URL }          \fi
+\ifx \path       \undefined \input path.sty               \fi
+\ifx \ifshowURL \undefined
+     \newif \ifshowURL
+     \showURLtrue
+\fi
+
+\bibitem{bib:one}
+韩中庚.
+\newblock {\em 数学建模方法及其应用}.
+\newblock 北京：高等教育出版社, 2009.
+
+\bibitem{bib:two}
+姜启源，谢金星，叶俊.
+\newblock {\em 数学模型}.
+\newblock 北京：高等教育出版社, 2003.
+
+\bibitem{bib:three}
+龚纯，王正林.
+\newblock {\em 精通 MATLAB 最优化计算}.
+\newblock 北京：电子工业出版社, 2012.
+
+\bibitem{bib:four}
+卓金武，李必文，魏永生，秦健.
+\newblock {\em MATLAB 在数学建模中的应用}.
+\newblock 北京：北京 航空航天大学出版社, 2014.
+
+\end{thebibliography}

@@ -1,0 +1,179 @@
+% !Mode:: "TeX:UTF-8"
+%!TEX program  = xelatex
+
+%\documentclass{cumcmthesis}
+\documentclass[withoutpreface,bwprint]{cumcmthesis} %去掉封面与编号页
+
+\usepackage{url}
+\usepackage{booktabs}
+
+\usepackage[colorlinks,
+             linkcolor=blue,       %%修改此处为你想要的颜色
+            anchorcolor=blue,  %%修改此处为你想要的颜色
+            citecolor=blue,        %%修改此处为你想要的颜色，例如修改blue为red
+             ]{hyperref}
+
+%感觉这个要跟你们商量一下
+%\usepackage[compress]{cite}
+
+
+%我们是电子版论文所以我把这个注释掉了=-=
+%\tihao{C}
+%\baominghao{4321}
+%\schoolname{中山大学}
+%\membera{A}
+%\memberb{B}
+%\memberc{C}
+%\supervisor{老师}
+%\yearinput{2019}
+%\monthinput{09}
+%\dayinput{15}
+
+\title{ }
+
+
+\begin{document}
+
+	\maketitle
+ 	\begin{abstract}
+
+
+	\keywords{}
+	\end{abstract}
+
+
+
+
+%目录
+\tableofcontents
+\newpage
+
+\section{问题重述}
+	\subsection{背景知识}
+
+	\subsection{相关数据}
+
+	\subsection{具体问题}
+
+
+\section{问题的分析}
+	\subsection{研究现状综述}
+
+	\subsection{对问题的总体分析和解题思路}
+
+	\subsection{对具体问题的分析和对策}
+
+\section{模型的假设}
+
+\section{名词解释和说明}
+
+	\subsection{名词解释}
+	\subsection{符号说明}
+
+\begin{table}[!htp]
+\centering
+\caption{本文所用符号的相关说明与解释}\label{Tab:1}
+\begin{tabular}{cc}
+ \toprule[1.5pt]
+%\makebox[0.3\textwidth][c]{符号}	&  \makebox[0.4\textwidth][c]{意义} \\
+符号 &   意义 \\ 
+\midrule
+
+\bottomrule[1.5pt]
+\end{tabular}
+\end{table}
+
+\section{模型的建立与解决}
+%在这一部分每个问题都必须有一个独立的subsection去进行说明！！
+
+\section{误差分析与灵敏度分析}
+	\subsection{误差分析}
+
+	\subsection{灵敏度分析}
+
+\section{模型的评价与推广}
+	\subsection{模型的评价}
+
+	\subsection{模型的推广}
+
+\section{模型的改进}
+
+%参考文献
+
+
+\bibliography{BJCT}
+\bibliographystyle{is-unsrt}
+
+%\begin{thebibliography}{99}%宽度9
+% \bibitem{bib:one} 韩中庚，数学建模方法及其应用，北京：高等教育出版社，2009。 
+% \bibitem{bib:two}姜启源，谢金星，叶俊，数学模型，北京：高等教育出版社，2003。 
+% \bibitem{bib:three}龚纯，王正林，精通 MATLAB 最优化计算，北京：电子工业出版社，2012。 
+% \bibitem{bib:four}卓金武，李必文，魏永生，秦健，MATLAB 在数学建模中的应用，北京：北京 航空航天大学出版社，2014。
+%\end{thebibliography}
+
+\newpage
+%附录
+\appendix
+\section{主程序--matlab 源程序}
+\begin{lstlisting}[language=matlab]
+function [dist,xiane,xinyuzhi] = clac()
+info_renwu = load('renwu_information.txt');
+row = size(info_renwu,1);
+col = size(info_renwu,2);
+dist = zeros(row,1);
+xiane  = zeros(row,1);
+xinyuzhi = zeros(row,1);
+dingjia = info_renwu(:,3);
+for i = 1:row
+[dist(i),xiane(i),xinyuzhi(i)]=variable(info_renwu,i); 
+end
+
+ \end{lstlisting}
+
+\section{计算距离--matlab 源程序}
+\begin{lstlisting}[language=matlab]
+function dis = distance(wei1,jing1,wei2,jing2)
+R = 6370;
+%dis = asin(sqrt(sin((wei1-wei2)/2)^2+cos(wei1)*cos(wei2)*sin((jing1-jing2)/2)^2));
+%dis = dis*2*R;
+dis = 2*pi*R/360*((wei1-wei2)^2+(jing1-jing2)^2*cos((wei1+wei2)/2)^2)^0.5;
+
+\section{聚类--matlab 源程序}
+\begin{lstlisting}[language=matlab]
+function [dist,xiane,xinyuzhi] = variable(info_renwu,i)
+info_huiyuan = load('huiyuan_location.txt');
+data_xiane = info_huiyuan(:,3);
+data_xinyu = info_huiyuan(:,4);
+data_wei = info_huiyuan(:,1);
+data_jing = info_huiyuan(:,2);
+num = size(data_jing,1);
+data_distance = zeros(num,1);
+sum = 0;
+for j = 1:num
+data_distance(j) = distance(info_renwu(i,1),info_renwu(i,2),info_huiyuan(j,1),info_huiyuan(j,2));
+end
+[a,b] = sort(data_distance);
+first = b(1:30,:);
+for count = 1:30
+sum = sum + data_distance(first(count));
+end
+dist = sum/30;
+sum = 0;
+for count = 1:30
+sum = sum + data_xiane(first(count));
+end
+xiane = sum/30;
+sum = 0;
+for count = 1:30
+sum = sum + data_xinyu(first(count));
+end
+xinyuzhi = sum/30;
+
+\end{lstlisting}
+
+
+
+
+
+
+\end{document} 
